@@ -30,7 +30,6 @@ module.exports = (sequelize, tools) => {
             const Info = req.body
             const number = GetNo()
             const time = GetAll()
-            if (!req.get('TP-TOKEN')) return res.json({ message: "請輸入token" })
             try {
                 await member.create({ userNo: number, token: Enaes, createTime: time, ...Info })
                 return res.json({ success: true, message: "註冊成功" })
