@@ -53,7 +53,8 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
                         })
 
                         // 內容轉字串
-                        let stringdata = JSON.stringify("https://www.google.com/")
+                        let stringdata = `https://taipei-tour.herokuapp.com/taipei/qrcode?productName=${productName}&StartTime=${StartTime}`
+                        console.log(stringdata)
                         transporter.use('compile', inlineBase64({ cidPrefix: 'somePrefix_' }));
                         const qrcode = await (new Promise((resolve, rej) => {
                             QRCode.toDataURL(stringdata, function (err, code) {
@@ -65,6 +66,7 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
                                 resolve(code)
                             })
                         }))
+
                         // email內容
                         const options = {
                             from: "apple65650505@gmail.com",
