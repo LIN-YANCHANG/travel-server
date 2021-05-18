@@ -17,7 +17,7 @@
     "username": "root",
     "password": "a22936430",
     "database": "journey",
-    "host": "https://taipei-tour.herokuapp.com/",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   }
 }
