@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         amount: { type: DataTypes.INTEGER },
         StartTime: { type: DataTypes.STRING },
         payType: { type: DataTypes.STRING },
+        maturity: { type: DataTypes.STRING },
         CreateTime: { type: DataTypes.STRING },
         RefundTime: { type: DataTypes.STRING },
     }, { operatorsAliases: true, freezeTableName: true, timestamps: false });

@@ -34,6 +34,7 @@ module.exports = (sequelize, tools) => {
                 await member.create({ userNo: number, token: Enaes, createTime: time, ...Info })
                 return res.json({ success: true, message: "註冊成功" })
             } catch (error) {
+                console.log(error)
                 return res.json({ error: 400, message: "系統錯誤" })
             }
         },
@@ -42,12 +43,12 @@ module.exports = (sequelize, tools) => {
             const pwd = req.body
             const time = GetAll()
             if (!req.get('TP-TOKEN')) return res.json({ message: "請輸入token" })
-            const password = pwd.new
-            const oldPassword = pwd.old
+            const password = pwd.old
+            const newPassword = pwd.new
             const [member_data] = await member.findAll({ where: { password }, raw: true })
-            if (oldPassword != member_data.password) return res.json({ error: 400, message: "舊密碼錯誤" })
+            if (password != member_data.password) return res.json({ error: 400, message: "舊密碼錯誤" })
             try {
-                await member.update({ updateTime: time, password }, { where: { userId } })
+                await member.update({ updateTime: time, password: newPassword }, { where: { userId } })
                 return res.json({ success: true, message: "更改成功" })
             } catch (error) {
                 return res.json({ error: 400, message: "系統錯誤" })

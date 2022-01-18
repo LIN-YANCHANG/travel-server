@@ -21,7 +21,7 @@ const timeFormat = (format, nowTime) => {
         y: date.getFullYear() - 1911,
         M: add_0(date.getMonth() + 1),
         D: add_0(date.getDate()),
-        h: (date.getHours()),
+        h: add_0(date.getHours()),
         m: add_0(date.getMinutes()),
         s: add_0(date.getSeconds()),
         // f: date.getMilliseconds()
@@ -39,7 +39,7 @@ time.GetAll = () => timeFormat('Y-M-D h:m:s')
 time.GetTime = () => timeFormat('h:m:s')
 
 // xx:xx
-time.GetTimes=()=>timeFormat('h:m')
+time.GetTimes = () => timeFormat('h:m')
 
 // XXXX-XX-XX  nowTime預設為null 有值的話就會傳遞  nowTime為變化的時間
 time.GetDate = (nowTime = null) => timeFormat('Y-M-D', nowTime)

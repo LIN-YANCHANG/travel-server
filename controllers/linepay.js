@@ -3,10 +3,10 @@ const { raw } = require('express')
 module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
     const { linepay } = sequelize
     const { GetAll } = tools
-    const time = GetAll()
     return {
         CreateLinepay: async (req, res) => {
             // console.log(req.body)
+
             try {
                 const reserve = (await axios({
                     method: 'post',
@@ -28,6 +28,7 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
         },
 
         ConfirmLinepay: async (req, res) => {
+            const time = GetAll()
             const { transactionId, orderId, amount, userId, StartTime, productName, payType, account } = req.query
             const lineData = { orderId: orderId, transactionId: transactionId, userId: userId, productName: productName, amount: amount, payType: payType, StartTime: StartTime, CreateTime: time }
             try {
@@ -52,10 +53,11 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
                             }
                         })
 
-                        // 內容轉字串
+
                         let stringdata = `https://taipei-tour.herokuapp.com/taipei/qrcode?productName=${productName}&StartTime=${StartTime}`
                         console.log(stringdata)
                         transporter.use('compile', inlineBase64({ cidPrefix: 'somePrefix_' }));
+                        // qrcode
                         const qrcode = await (new Promise((resolve, rej) => {
                             QRCode.toDataURL(stringdata, function (err, code) {
                                 if (err) {
@@ -66,7 +68,6 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
                                 resolve(code)
                             })
                         }))
-
                         // email內容
                         const options = {
                             from: "apple65650505@gmail.com",
@@ -92,6 +93,7 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
             }
         },
         RefundLinepay: async (req, res) => {
+            const time = GetAll()
             const { transactionId } = req.body
             try {
                 const refund = (await axios({
@@ -120,8 +122,8 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
         },
         SearchLinepay: async (req, res) => {
             try {
-                const searchInfo = await linepay.findAll({ where: { RefundTime: 0 } })
-
+                const searchInfo = await linepay.findAll({ where: { RefundTime: 0 }, raw: true })
+                console.log(searchInfo)
                 return res.json({ searchInfo, message: "查詢成功" })
             } catch (error) {
                 return res.json({ error: 400, message: "系統錯誤" })

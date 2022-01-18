@@ -12,5 +12,4 @@ Routes.use('*', (req, res) => {
     res.send(html)
 })
 
-
 module.exports = Routes

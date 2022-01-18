@@ -17,7 +17,7 @@
     "username": "root",
     "password": "a22936430",
     "database": "journey",
-    "host": "114.32.150.22",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   }
 }
