@@ -1,5 +1,4 @@
 const CryptoJS = require('crypto-js')
-const { raw } = require('express')
 module.exports = (sequelize, tools) => {
     const { member } = sequelize
     const { GetAll, GetNo } = tools

@@ -14,5 +14,4 @@ fs
         let route = name.replace('.js', '')
         controllers[route] = require(`./${name}`)(sequelize, tools, nodemailer, QRCode, inlineBase64)
     })
-
 module.exports = (router, controllers)

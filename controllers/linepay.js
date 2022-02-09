@@ -1,5 +1,4 @@
 const axios = require('axios')
-const { raw } = require('express')
 module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
     const { linepay } = sequelize
     const { GetAll } = tools
@@ -13,8 +12,8 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
                     url: "https://sandbox-api-pay.line.me/v2/payments/request",
                     headers: {
                         "Content-Type": "application/json",
-                        "X-LINE-ChannelId": "1653656358",
-                        "X-LINE-ChannelSecret": "f237af2c6c282be2a6195bde9c2f0bf6"
+                        "X-LINE-ChannelId": "",
+                        "X-LINE-ChannelSecret": ""
                     },
                     data: req.body
                 })).data
@@ -36,8 +35,8 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
                     method: 'post',
                     url: `https://sandbox-api-pay.line.me/v2/payments/${transactionId}/confirm`,
                     headers: {
-                        "X-LINE-ChannelId": "1653656358",
-                        "X-LINE-ChannelSecret": "f237af2c6c282be2a6195bde9c2f0bf6"
+                        "X-LINE-ChannelId": "",
+                        "X-LINE-ChannelSecret": ""
                     },
                     data: req.body
                 })).data
@@ -101,8 +100,8 @@ module.exports = (sequelize, tools, nodemailer, QRCode, inlineBase64) => {
                     url: `https://sandbox-api-pay.line.me/v2/payments/${transactionId}/refund`,
                     headers: {
                         "Content-Type": "application/json",
-                        "X-LINE-ChannelId": "1653656358",
-                        "X-LINE-ChannelSecret": "f237af2c6c282be2a6195bde9c2f0bf6"
+                        "X-LINE-ChannelId": "",
+                        "X-LINE-ChannelSecret": ""
                     },
                 })).data
                 // console.log(req.body)
